@@ -13,10 +13,6 @@
 	position: fixed;
 	top: 0; right: 0; bottom: 0; left: 0;
 	margin: auto;
-
-	/* Configurable */
-	width: 800px;
-	height: 450px;
 }
 
 .ng-dialogbox {
@@ -118,6 +114,26 @@
 }
 .ng-dialogbox-left { float: left; }
 .ng-dialogbox-right { float: right; }
+
+.ng-dialogbox-full {
+	width: 90%;
+	height: 90%;
+}
+
+.ng-dialogbox-large {
+	width: 800px;
+	height: 600px;
+}
+
+.ng-dialogbox-medium {
+	width: 600px;
+	height: 450px;
+}
+
+.ng-dialogbox-small {
+	width: 400px;
+	height: 300px;
+}
 
 .ng-dialogbox-show-menu .ng-dialogbox-content {
 	bottom: 40px;

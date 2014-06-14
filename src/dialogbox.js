@@ -3,6 +3,9 @@ angular.module('angular-dialogbox', ['ng'])
 		return {
 			restrict: 'AE',
 			scope: {
+				size: '@',
+				height: '@',
+				width: '@',
 				heading: '@',
 				subheading: '@',
 				content: '@',
@@ -50,7 +53,20 @@ angular.module('angular-dialogbox', ['ng'])
 			}],
 
 			link: function (scope, elem, attr) {
-				console.log(attr);
+				if (!scope.size) {
+					scope.size = 'medium';
+				}
+
+				var container = elem.children().children();
+				container.addClass('ng-dialogbox-' + scope.size);
+
+				if (!isNaN(parseInt(scope.height, 10))) {
+					container.css('height', parseInt(scope.height, 10) + 'px');
+				}
+
+				if (!isNaN(parseInt(scope.width, 10))) {
+					container.css('width', parseInt(scope.width, 10) + 'px');
+				}
 			}
 		};
 	});

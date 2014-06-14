@@ -69,7 +69,7 @@
 	<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris justo justo, tincidunt ut pellentesque at, semper sed leo. Proin magna lacus, pretium eu massa in, condimentum faucibus felis. Etiam eu odio bibendum, dictum urna et, posuere quam. Donec eu velit nibh. In feugiat mollis vestibulum. Nullam nec fermentum nunc. Etiam consequat mi at neque mattis, sit amet aliquam nulla feugiat. Maecenas sit amet nisi malesuada nulla lobortis dapibus. Duis diam turpis, sollicitudin quis pharetra sed, condimentum quis dolor. Maecenas pulvinar metus neque, et accumsan odio dapibus non.</p>
 	<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris justo justo, tincidunt ut pellentesque at, semper sed leo. Proin magna lacus, pretium eu massa in, condimentum faucibus felis. Etiam eu odio bibendum, dictum urna et, posuere quam. Donec eu velit nibh. In feugiat mollis vestibulum. Nullam nec fermentum nunc. Etiam consequat mi at neque mattis, sit amet aliquam nulla feugiat. Maecenas sit amet nisi malesuada nulla lobortis dapibus. Duis diam turpis, sollicitudin quis pharetra sed, condimentum quis dolor. Maecenas pulvinar metus neque, et accumsan odio dapibus non.</p>
 
-    <div ng-dialogbox heading="{{ labels.heading }}" subheading="{{ labels.subheading }}" content="{{ content }}" content-url="{{ contentUrl }}" buttons="buttons">
+    <div ng-dialogbox width="{{ width }}" height="{{ height }}" size="{{ size }}" heading="{{ labels.heading }}" subheading="{{ labels.subheading }}" content="{{ content }}" content-url="{{ contentUrl }}" buttons="buttons">
 		This <em>content</em> is transcluded {{ content }}
 	</div>
 </div>
@@ -86,6 +86,9 @@
                 heading: 'Hello World',
                 subheading: 'Thanks for coming!'
             };
+			$scope.width = 250;
+			$scope.height = 150;
+			$scope.size = 'medium';
             $scope.content = 'Lorem Ipsum';
 			$scope.contentUrl = '/content.html';
 			$scope.buttons = {
