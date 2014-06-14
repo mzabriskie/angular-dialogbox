@@ -1,0 +1,22 @@
+{
+	"name": "angular-dialogbox",
+	"description": "DialogBox for Angular",
+	"version": "0.0.0",
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "git://github.com/mzabriskie/angular-dialogbox.git"
+	},
+	"author": {
+		"name": "Matt Zabriskie",
+		"url": "http://www.mattzabriskie.com",
+		"email": "mzabriskie@gmail.com"
+	},
+	"scripts": {
+		"test": "grunt test"
+	},
+	"devDependencies": {
+		"grunt": "0.4.5",
+		"grunt-contrib-jshint": "0.10.0"
+	}
+}

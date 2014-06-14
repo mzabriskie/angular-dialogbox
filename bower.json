@@ -1,0 +1,24 @@
+{
+    "author": "Matt Zabriskie",
+    "name": "angular-dialogbox",
+    "description": "DialogBox for Angular",
+    "version": "0.0.0",
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/mzabriskie/angular-dialogbox.git"
+    },
+    "main": "./dist/angular-dialogbox.min.js",
+    "ignore": [
+        ".*",
+        "src/",
+        "test/",
+        "node_modules/",
+        "Gruntfile.js",
+        "package.json",
+        "karma.conf.js",
+        "karma.start.js"
+    ],
+    "devDependencies": {
+        "angular": "~1.2.17"
+    }
+}
