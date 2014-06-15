@@ -1,4 +1,23 @@
 angular.module('angular-dialogbox', ['ng'])
+	.controller('DialogboxCtrl', ['$scope', '$http', function ($scope, $http) {
+		$scope.loadRemoteContent = function () {
+			$http({ method: 'GET', url: $scope.contentUrl })
+				.success(function (data) {
+					$scope.content = data;
+				})
+				.error(function () {
+					$scope.content = 'Error fetching content from ' + $scope.contentUrl;
+				});
+		};
+
+		if ($scope.contentUrl) {
+			$scope.loadRemoteContent();
+		}
+
+		$scope.close = function () {
+			console.log('close');
+		};
+	}])
 	.directive('ngDialogbox', function () {
 		return {
 			restrict: 'AE',
@@ -36,21 +55,7 @@ angular.module('angular-dialogbox', ['ng'])
 							'</div>' +
 						'</div>',
 
-			controller: ['$scope', '$http', function ($scope, $http) {
-				if ($scope.contentUrl) {
-					$http({ method: 'GET', url: $scope.contentUrl })
-						.success(function (data) {
-							$scope.content = data;
-						})
-						.error(function () {
-							$scope.content = 'Error fetching content from ' + $scope.contentUrl;
-						});
-				}
-
-				$scope.close = function () {
-					console.log('close');
-				};
-			}],
+			controller: 'DialogboxCtrl',
 
 			link: function (scope, elem, attr) {
 				if (!scope.size) {
