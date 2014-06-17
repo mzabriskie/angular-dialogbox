@@ -1,4 +1,7 @@
 angular.module('angular-dialogbox', ['ng'])
+	.constant('DIALOG_ACTION_SUBMIT', 'dialogbox:submit')
+	.constant('DIALOG_ACTION_CANCEL', 'dialogbox:cancel')
+
 	.controller('DialogboxCtrl', ['$scope', '$http', function ($scope, $http) {
 		$scope.loadRemoteContent = function () {
 			$http({ method: 'GET', url: $scope.contentUrl })
@@ -18,6 +21,7 @@ angular.module('angular-dialogbox', ['ng'])
 			console.log('close');
 		};
 	}])
+
 	.directive('ngDialogbox', function () {
 		return {
 			restrict: 'AE',

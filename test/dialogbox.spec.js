@@ -212,4 +212,11 @@ describe('angular-dialogbox', function () {
 			expect(element.children().children().children().children().eq(1).text()).toEqual(text);
 		}));
 	});
+
+	describe('constants', function () {
+		it('should provide button actions', inject(function (DIALOG_ACTION_SUBMIT, DIALOG_ACTION_CANCEL) {
+			expect(DIALOG_ACTION_SUBMIT).toEqual('dialogbox:submit');
+			expect(DIALOG_ACTION_CANCEL).toEqual('dialogbox:cancel');
+		}));
+	});
 });
