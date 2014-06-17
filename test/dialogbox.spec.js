@@ -27,6 +27,20 @@ describe('angular-dialogbox', function () {
 		$httpBackend.verifyNoOutstandingRequest();
 	}));
 
+	describe('attr: modal', function () {
+		it('should default to false', inject(function ($compile) {
+			createElement($compile, $scope);
+
+			expect(element.children().hasClass('ng-dialogbox-show-close')).toBeFalsy();
+		}));
+
+		it('should accept modal', inject(function ($compile) {
+			createElement($compile, $scope, { modal: true });
+
+			expect(element.children().hasClass('ng-dialogbox-show-close')).toBeTruthy();
+		}));
+	});
+
 	describe('attr: size', function () {
 		it('should auto specify size', inject(function ($compile) {
 			createElement($compile, $scope);

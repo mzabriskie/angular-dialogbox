@@ -135,6 +135,10 @@
 	height: 300px;
 }
 
+.ng-dialogbox-show-close .ng-dialogbox-close {
+	visibility: hidden;
+}
+
 .ng-dialogbox-show-menu .ng-dialogbox-content {
 	bottom: 40px;
 }
