@@ -21,6 +21,7 @@ angular.module('angular-dialogbox', ['ng'])
 	.directive('ngDialogbox', function () {
 		return {
 			restrict: 'AE',
+			transclude: true,
 			scope: {
 				modal: '@',
 				size: '@',
@@ -43,7 +44,9 @@ angular.module('angular-dialogbox', ['ng'])
 										'<h1 class="ng-dialogbox-heading">{{ heading }}</h1>' +
 										'<div class="ng-dialogbox-subheading">{{ subheading }}</div>' +
 									'</header>' +
-									'<div class="ng-dialogbox-content">{{ content }}</div>' +
+									'<div class="ng-dialogbox-content">{{ content }}' +
+										'<div ng-transclude></div>' +
+									'</div>' +
 									'<div class="ng-dialogbox-footer">' +
 										'<menu class="ng-dialogbox-left">' +
 											'<button ng-repeat="b in buttons.left">{{ b.label }}</button>' +

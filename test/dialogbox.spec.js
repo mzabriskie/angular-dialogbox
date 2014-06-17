@@ -1,8 +1,8 @@
 describe('angular-dialogbox', function () {
 	var $scope, element;
 
-	function createElement($compile, $scope, attr) {
-		element = angular.element('<div ng-dialogbox/>');
+	function createElement($compile, $scope, attr, transclude) {
+		element = angular.element('<div ng-dialogbox>' + (transclude || '') + '</div>');
 
 		for (var k in attr) {
 			if (attr.hasOwnProperty(k)) {
@@ -195,6 +195,21 @@ describe('angular-dialogbox', function () {
 			expect(left.eq(0).text()).toEqual(buttons.left[0].label);
 			expect(left.eq(1).text()).toEqual(buttons.left[1].label);
 			expect(right.eq(0).text()).toEqual(buttons.right[0].label);
+		}));
+	});
+
+	describe('transclusion', function () {
+		it('should have no content by default', inject(function ($compile) {
+			createElement($compile, $scope);
+
+			expect(element.children().children().children().children().eq(1).text()).toEqual('');
+		}));
+
+		it('should transclude content', inject(function ($compile) {
+			var text = 'This is transcluded content'
+			createElement($compile, $scope, null, text);
+
+			expect(element.children().children().children().children().eq(1).text()).toEqual(text);
 		}));
 	});
 });
