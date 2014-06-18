@@ -2,7 +2,7 @@ describe('angular-dialogbox', function () {
 	var $scope, element;
 
 	function createElement($compile, $scope, attr, transclude) {
-		element = angular.element('<div ng-dialogbox>' + (transclude || '') + '</div>');
+		element = angular.element('<div ng-dialogbox' + (attr && attr['ng-dialogbox'] ? '="' + attr['ng-dialogbox'] + '"' : '') + '>' + (transclude || '') + '</div>');
 
 		for (var k in attr) {
 			if (attr.hasOwnProperty(k)) {
@@ -206,7 +206,7 @@ describe('angular-dialogbox', function () {
 		}));
 
 		it('should transclude content', inject(function ($compile) {
-			var text = 'This is transcluded content'
+			var text = 'This is transcluded content';
 			createElement($compile, $scope, null, text);
 
 			expect(element.children().children().children().children().eq(1).text()).toEqual(text);
@@ -217,6 +217,28 @@ describe('angular-dialogbox', function () {
 		it('should provide button actions', inject(function (DIALOG_ACTION_SUBMIT, DIALOG_ACTION_CANCEL) {
 			expect(DIALOG_ACTION_SUBMIT).toEqual('dialogbox:submit');
 			expect(DIALOG_ACTION_CANCEL).toEqual('dialogbox:cancel');
+		}));
+	});
+
+	describe('service', function () {
+		it('should provide a service', inject(function ($dialogbox) {
+			expect($dialogbox).not.toBeUndefined();
+		}));
+
+		it('should get an instance', inject(function ($compile, $dialogbox) {
+			createElement($compile, $scope, {'ng-dialogbox': 'foo'});
+
+			expect($dialogbox.get('foo')).not.toBeUndefined();
+		}));
+
+		it('should resolve a promise', inject(function ($compile, $dialogbox) {
+			createElement($compile, $scope, {'ng-dialogbox': 'foo'});
+
+			var callback = jasmine.createSpy();
+			$dialogbox.get('foo').then(callback);
+			$scope.$apply();
+
+			expect(callback).toHaveBeenCalled();
 		}));
 	});
 });

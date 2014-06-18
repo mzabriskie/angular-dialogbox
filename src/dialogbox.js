@@ -2,6 +2,26 @@ angular.module('angular-dialogbox', ['ng'])
 	.constant('DIALOG_ACTION_SUBMIT', 'dialogbox:submit')
 	.constant('DIALOG_ACTION_CANCEL', 'dialogbox:cancel')
 
+	.factory('$dialogbox', function ($q) {
+		var instances = {};
+
+		function DialogBox(name) {
+			if (!instances[name]) {
+				instances[name] = $q.defer();
+			}
+			instances[name].resolve(this);
+		}
+
+		DialogBox.get = function (name) {
+			if (!instances[name]) {
+				instances[name] = $q.defer();
+			}
+			return instances[name].promise;
+		};
+
+		return DialogBox;
+	})
+
 	.controller('DialogboxCtrl', ['$scope', '$http', function ($scope, $http) {
 		$scope.loadRemoteContent = function () {
 			$http({ method: 'GET', url: $scope.contentUrl })
@@ -22,7 +42,7 @@ angular.module('angular-dialogbox', ['ng'])
 		};
 	}])
 
-	.directive('ngDialogbox', function () {
+	.directive('ngDialogbox', function ($dialogbox) {
 		return {
 			restrict: 'AE',
 			transclude: true,
@@ -66,6 +86,10 @@ angular.module('angular-dialogbox', ['ng'])
 			controller: 'DialogboxCtrl',
 
 			link: function (scope, elem, attr) {
+				if (attr.ngDialogbox) {
+					scope.dialogbox = new $dialogbox(attr.ngDialogbox);
+				}
+
 				if (!scope.size) {
 					scope.size = 'medium';
 				}
