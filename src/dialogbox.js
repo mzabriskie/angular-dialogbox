@@ -19,6 +19,16 @@ angular.module('angular-dialogbox', ['ng'])
 			return instances[name].promise;
 		};
 
+		DialogBox.prototype = {
+			open: function () {
+				this.active = true;
+			},
+
+			close: function () {
+				this.active = false;
+			}
+		};
+
 		return DialogBox;
 	})
 
@@ -36,10 +46,6 @@ angular.module('angular-dialogbox', ['ng'])
 		if ($scope.contentUrl) {
 			$scope.loadRemoteContent();
 		}
-
-		$scope.close = function () {
-			console.log('close');
-		};
 	}])
 
 	.directive('ngDialogbox', function ($dialogbox) {
@@ -58,12 +64,12 @@ angular.module('angular-dialogbox', ['ng'])
 				buttons: '='
 			},
 
-			template:	'<div class="ng-dialogbox-scrim" ng-class="{ \'ng-dialogbox-show-close\' : modal, \'ng-dialogbox-show-subheading\' : subheading.length, \'ng-dialogbox-show-menu\' : buttons.left.length || buttons.right.length }">' +
+			template:	'<div ng-show="dialogbox.active" class="ng-dialogbox-scrim" ng-class="{ \'ng-dialogbox-show-close\' : modal, \'ng-dialogbox-show-subheading\' : subheading.length, \'ng-dialogbox-show-menu\' : buttons.left.length || buttons.right.length }">' +
 							'<div class="ng-dialogbox-border">' +
 								'<div class="ng-dialogbox">' +
 									'<header class="ng-dialogbox-header">' +
 										'<div class="ng-dialogbox-options">' +
-											'<a class="ng-dialogbox-close" ng-click="close()">×</a>' +
+											'<a class="ng-dialogbox-close">×</a>' +
 										'</div>' +
 										'<h1 class="ng-dialogbox-heading">{{ heading }}</h1>' +
 										'<div class="ng-dialogbox-subheading">{{ subheading }}</div>' +
@@ -93,6 +99,12 @@ angular.module('angular-dialogbox', ['ng'])
 				if (!scope.size) {
 					scope.size = 'medium';
 				}
+
+				elem.find('header').find('a').on('click', function () {
+					scope.$apply(function () {
+						scope.dialogbox.close();
+					});
+				});
 
 				var container = elem.children().children();
 				container.addClass('ng-dialogbox-' + scope.size);

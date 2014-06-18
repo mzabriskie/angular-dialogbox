@@ -240,5 +240,24 @@ describe('angular-dialogbox', function () {
 
 			expect(callback).toHaveBeenCalled();
 		}));
+
+		it('should activate by calling open', inject(function ($compile, $dialogbox) {
+			createElement($compile, $scope, {'ng-dialogbox': 'foo'});
+
+			$dialogbox.get('foo').then(function (dialog) {
+				dialog.open();
+				expect(dialog.active).toBeTruthy();
+			});
+		}));
+
+		it('should deactivate by calling close', inject(function ($compile, $dialogbox) {
+			createElement($compile, $scope, {'ng-dialogbox': 'foo'});
+
+			$dialogbox.get('foo').then(function (dialog) {
+				dialog.open();
+				dialog.close();
+				expect(dialog.active).toBeFalsy();
+			});
+		}));
 	});
 });
