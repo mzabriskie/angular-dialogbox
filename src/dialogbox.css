@@ -52,6 +52,7 @@
 	margin: 5px;
 	text-align: center;
 	text-shadow: 0 1px 0 #666;
+	visibility: hidden;
 }
 
 .ng-dialogbox-heading {
@@ -136,7 +137,7 @@
 }
 
 .ng-dialogbox-show-close .ng-dialogbox-close {
-	visibility: hidden;
+	visibility: visible;
 }
 
 .ng-dialogbox-show-menu .ng-dialogbox-content {
