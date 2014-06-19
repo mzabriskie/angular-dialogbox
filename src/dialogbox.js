@@ -5,10 +5,12 @@ angular.module('angular-dialogbox', ['ng'])
 	.factory('$dialogbox', function ($q) {
 		var instances = {};
 
-		function DialogBox(name) {
+		function DialogBox(name, options) {
 			if (!instances[name]) {
 				instances[name] = $q.defer();
 			}
+			this.name = name;
+			this.options = options || {};
 			instances[name].resolve(this);
 		}
 
@@ -25,7 +27,9 @@ angular.module('angular-dialogbox', ['ng'])
 			},
 
 			close: function () {
-				this.active = false;
+				if (!this.options.modal) {
+					this.active = false;
+				}
 			}
 		};
 
@@ -96,7 +100,6 @@ angular.module('angular-dialogbox', ['ng'])
 			link: function (scope, elem, attr) {
 				if (!hasDocumentKeyUpEvent) {
 					$document.on('keyup', function (e) {
-						console.log(e.keyCode);
 						if (e.keyCode === 27) {
 							scope.$apply(function () {
 								scope.dialogbox.close();
@@ -115,12 +118,15 @@ angular.module('angular-dialogbox', ['ng'])
 
 				if (attr.ngDialogbox) {
 					scope.dialogbox = new $dialogbox(attr.ngDialogbox);
+
+					scope.$watch('modal', function (value) {
+						scope.dialogbox.options.modal = value === 'true' || value === true || false;
+					});
 				}
 
 				if (!scope.size) {
 					scope.size = 'medium';
 				}
-
 				var container = elem.children().children();
 				container.addClass('ng-dialogbox-' + scope.size);
 

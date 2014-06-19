@@ -31,13 +31,13 @@ describe('angular-dialogbox', function () {
 		it('should default to false', inject(function ($compile) {
 			createElement($compile, $scope);
 
-			expect(element.children().hasClass('ng-dialogbox-show-close')).toBeFalsy();
+			expect(element.children().hasClass('ng-dialogbox-show-close')).toEqual(false);
 		}));
 
 		it('should accept modal', inject(function ($compile) {
 			createElement($compile, $scope, { modal: true });
 
-			expect(element.children().hasClass('ng-dialogbox-show-close')).toBeTruthy();
+			expect(element.children().hasClass('ng-dialogbox-show-close')).toEqual(true);
 		}));
 	});
 
@@ -45,13 +45,13 @@ describe('angular-dialogbox', function () {
 		it('should auto specify size', inject(function ($compile) {
 			createElement($compile, $scope);
 
-			expect(element.children().children().hasClass('ng-dialogbox-medium')).toBeTruthy();
+			expect(element.children().children().hasClass('ng-dialogbox-medium')).toEqual(true);
 		}));
 
 		it('should accept size', inject(function ($compile) {
 			createElement($compile, $scope, { size: 'small' });
 
-			expect(element.children().children().hasClass('ng-dialogbox-small')).toBeTruthy();
+			expect(element.children().children().hasClass('ng-dialogbox-small')).toEqual(true);
 		}));
 	});
 
@@ -102,14 +102,14 @@ describe('angular-dialogbox', function () {
 		it('should default to not show subheading', inject(function ($compile) {
 			createElement($compile, $scope);
 
-			expect(element.children().hasClass('ng-dialogbox-show-subheading')).toBeFalsy();
+			expect(element.children().hasClass('ng-dialogbox-show-subheading')).toEqual(false);
 		}));
 
 		it('should show subheading when attribute is set', inject(function ($compile) {
 			var text = 'Lorem Ipsum';
 			createElement($compile, $scope, { subheading: text });
 
-			expect(element.children().hasClass('ng-dialogbox-show-subheading')).toBeTruthy();
+			expect(element.children().hasClass('ng-dialogbox-show-subheading')).toEqual(true);
 			expect(element.find('header').children().eq(2).text()).toEqual(text);
 		}));
 	});
@@ -205,11 +205,11 @@ describe('angular-dialogbox', function () {
 	//
 	//		$dialogbox.get('foo').then(function (dialog) {
 	//			dialog.open();
-	//			expect(dialog.active).toBeTruthy();
+	//			expect(dialog.active).toEqual(true);
 	//
 	//			$document.triggerHandler('keyup', {keyCode: 27, which: 27});
 	//
-	//			expect(dialog.active).toBeFalsy();
+	//			expect(dialog.active).toEqual(false);
 	//		});
 	//	}));
 	//});
@@ -257,12 +257,38 @@ describe('angular-dialogbox', function () {
 			expect(callback).toHaveBeenCalled();
 		}));
 
+		it('should have options', inject(function ($compile, $dialogbox) {
+			createElement($compile, $scope, {'ng-dialogbox': 'foo', modal: true});
+
+			$dialogbox.get('foo').then(function (dialog) {
+				expect(dialog.options.modal).toEqual(true);
+			});
+		}));
+
+		it('should default modal option to false', inject(function ($compile, $dialogbox) {
+			createElement($compile, $scope, {'ng-dialogbox': 'foo'});
+
+			$dialogbox.get('foo').then(function (dialog) {
+				expect(dialog.options.modal).toEqual(false);
+			});
+		}));
+
+		it('should not close when modal', inject(function ($compile, $dialogbox) {
+			createElement($compile, $scope, {'ng-dialogbox': 'foo', modal: true});
+
+			$dialogbox.get('foo').then(function (dialog) {
+				dialog.open();
+				dialog.close();
+				expect(dialog.active).toEqual(true);
+			});
+		}));
+
 		it('should activate by calling open', inject(function ($compile, $dialogbox) {
 			createElement($compile, $scope, {'ng-dialogbox': 'foo'});
 
 			$dialogbox.get('foo').then(function (dialog) {
 				dialog.open();
-				expect(dialog.active).toBeTruthy();
+				expect(dialog.active).toEqual(true);
 			});
 		}));
 
@@ -272,7 +298,7 @@ describe('angular-dialogbox', function () {
 			$dialogbox.get('foo').then(function (dialog) {
 				dialog.open();
 				dialog.close();
-				expect(dialog.active).toBeFalsy();
+				expect(dialog.active).toEqual(false);
 			});
 		}));
 	});
