@@ -193,21 +193,6 @@ describe('angular-dialogbox', function () {
 		}));
 	});
 
-	describe('attr: content', function () {
-		it('should default to empty', inject(function ($compile) {
-			createElement($compile, $scope);
-
-			expect(element.children().children().children().children().eq(1).text()).toEqual('');
-		}));
-
-		it('should accept content', inject(function ($compile) {
-			var text = 'This is content';
-			createElement($compile, $scope, { content: text });
-
-			expect(element.children().children().children().children().eq(1).text()).toEqual(text);
-		}));
-	});
-
 	describe('attr: contentUrl', function () {
 		it('should use $http to load contentUrl', inject(function ($compile, $controller, $httpBackend) {
 			var text = 'Content came form the server';

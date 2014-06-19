@@ -65,7 +65,6 @@ angular.module('angular-dialogbox', ['ng'])
 				width: '@',
 				heading: '@',
 				subheading: '@',
-				content: '@',
 				contentUrl: '@',
 				buttons: '='
 			},
