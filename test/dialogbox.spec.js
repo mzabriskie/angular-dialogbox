@@ -39,6 +39,19 @@ describe('angular-dialogbox', function () {
 
 			expect(element.children().hasClass('ng-dialogbox-show-close')).toEqual(true);
 		}));
+
+		it('should update modal', inject(function ($compile) {
+			$scope.modal = true;
+			createElement($compile, $scope, { modal: '{{ modal }}' });
+
+			expect(element.children().hasClass('ng-dialogbox-show-close')).toEqual(true);
+
+			$scope.$apply(function () {
+				$scope.modal = false;
+			});
+
+			expect(element.children().hasClass('ng-dialogbox-show-close')).toEqual(false);
+		}));
 	});
 
 	describe('attr: size', function () {
@@ -52,6 +65,20 @@ describe('angular-dialogbox', function () {
 			createElement($compile, $scope, { size: 'small' });
 
 			expect(element.children().children().hasClass('ng-dialogbox-small')).toEqual(true);
+		}));
+
+		it('should update size', inject(function ($compile) {
+			$scope.size = 'small';
+			createElement($compile, $scope, { size: '{{ size }}' });
+
+			expect(element.children().children().hasClass('ng-dialogbox-small')).toEqual(true);
+
+			$scope.$apply(function () {
+				$scope.size = 'medium';
+			});
+
+			expect(element.children().children().hasClass('ng-dialogbox-small')).toEqual(false);
+			expect(element.children().children().hasClass('ng-dialogbox-medium')).toEqual(true);
 		}));
 	});
 
@@ -67,6 +94,19 @@ describe('angular-dialogbox', function () {
 
 			expect(element.children().children().css('width')).toEqual('200px');
 		}));
+
+		it('should update width', inject(function ($compile) {
+			$scope.width = 200;
+			createElement($compile, $scope, { width: '{{ width }}' });
+
+			expect(element.children().children().css('width')).toEqual('200px');
+
+			$scope.$apply(function () {
+				$scope.width = 500;
+			});
+
+			expect(element.children().children().css('width')).toEqual('500px');
+		}));
 	});
 
 	describe('attr: height', function () {
@@ -80,6 +120,19 @@ describe('angular-dialogbox', function () {
 			createElement($compile, $scope, { height: 200 });
 
 			expect(element.children().children().css('height')).toEqual('200px');
+		}));
+
+		it('should update height', inject(function ($compile) {
+			$scope.height = 200;
+			createElement($compile, $scope, { height: '{{ height }}' });
+
+			expect(element.children().children().css('height')).toEqual('200px');
+
+			$scope.$apply(function () {
+				$scope.height = 500;
+			});
+
+			expect(element.children().children().css('height')).toEqual('500px');
 		}));
 	});
 
@@ -96,6 +149,19 @@ describe('angular-dialogbox', function () {
 
 			expect(element.find('h1').text()).toEqual(text);
 		}));
+
+		it('should update heading', inject(function ($compile) {
+			$scope.heading = 'Hello';
+			createElement($compile, $scope, { heading: '{{ heading }}'});
+
+			expect(element.find('h1').text()).toEqual('Hello');
+
+			$scope.$apply(function () {
+				$scope.heading = 'World';
+			});
+
+			expect(element.find('h1').text()).toEqual('World');
+		}));
 	});
 
 	describe('attr: subheading', function () {
@@ -111,6 +177,19 @@ describe('angular-dialogbox', function () {
 
 			expect(element.children().hasClass('ng-dialogbox-show-subheading')).toEqual(true);
 			expect(element.find('header').children().eq(2).text()).toEqual(text);
+		}));
+
+		it('should update subheading', inject(function ($compile) {
+			$scope.subheading = 'Lorem';
+			createElement($compile, $scope, { subheading: '{{ subheading }}' });
+
+			expect(element.find('header').children().eq(2).text()).toEqual('Lorem');
+
+			$scope.$apply(function () {
+				$scope.subheading = 'Ipsum';
+			});
+
+			expect(element.find('header').children().eq(2).text()).toEqual('Ipsum');
 		}));
 	});
 

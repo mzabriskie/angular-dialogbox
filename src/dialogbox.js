@@ -118,27 +118,39 @@ angular.module('angular-dialogbox', ['ng'])
 
 				if (attr.ngDialogbox) {
 					scope.dialogbox = new $dialogbox(attr.ngDialogbox);
-
-					scope.$watch('modal', function (value) {
-						scope.dialogbox.options.modal = value === 'true' || value === true || false;
-					});
 				}
 
-				if (!scope.size) {
-					scope.size = 'medium';
-				}
 				var container = elem.children().children();
-				container.addClass('ng-dialogbox-' + scope.size);
+				scope.$watch('size', function () {
+					if (!scope.size) {
+						scope.size = 'medium';
+					}
+					angular.forEach(['full', 'large', 'medium', 'small'], function (value) {
+						container.removeClass('ng-dialogbox-' + value);
+					});
+					container.addClass('ng-dialogbox-' + scope.size);
+				});
 
-				var height = parseInt(scope.height, 10);
-				if (!isNaN(height) && height > 0) {
-					container.css('height', height + 'px');
-				}
+				scope.$watch('height', function () {
+					var height = parseInt(scope.height, 10);
+					if (!isNaN(height) && height > 0) {
+						container.css('height', height + 'px');
+					}
+				});
 
-				var width = parseInt(scope.width, 10);
-				if (!isNaN(width) && width > 0) {
-					container.css('width', width + 'px');
-				}
+				scope.$watch('width', function () {
+					var width = parseInt(scope.width, 10);
+					if (!isNaN(width) && width > 0) {
+						container.css('width', width + 'px');
+					}
+				});
+
+				scope.$watch('modal', function (value) {
+					scope.modal = value === 'true' || value === true || false;
+					if (scope.dialogbox) {
+						scope.dialogbox.options.modal = scope.modal;
+					}
+				});
 			}
 		};
 	});
