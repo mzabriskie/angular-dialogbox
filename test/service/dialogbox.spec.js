@@ -42,45 +42,55 @@ describe('angular-dialogbox', function () {
 		it('should have options', inject(function ($dialogbox) {
 			$dialogbox.create('foo', {modal: true});
 
-			$dialogbox.get('foo').then(function (dialog) {
-				expect(dialog.options.modal).toEqual(true);
+			$scope.$apply(function () {
+				$dialogbox.get('foo').then(function (dialog) {
+					expect(dialog.options.modal).toEqual(true);
+				});
 			});
 		}));
 
 		it('should default modal option to false', inject(function ($dialogbox) {
 			$dialogbox.create('foo');
 
-			$dialogbox.get('foo').then(function (dialog) {
-				expect(dialog.options.modal).toEqual(false);
+			$scope.$apply(function () {
+				$dialogbox.get('foo').then(function (dialog) {
+					expect(dialog.options.modal).toEqual(false);
+				});
 			});
 		}));
 
 		it('should not close when modal', inject(function ($dialogbox) {
 			$dialogbox.create('foo', {modal: true});
 
-			$dialogbox.get('foo').then(function (dialog) {
-				dialog.open();
-				dialog.close();
-				expect(dialog.active).toEqual(true);
+			$scope.$apply(function () {
+				$dialogbox.get('foo').then(function (dialog) {
+					dialog.open();
+					dialog.close();
+					expect(dialog.active).toEqual(true);
+				});
 			});
 		}));
 
 		it('should activate by calling open', inject(function ($dialogbox) {
 			$dialogbox.create('foo');
 
-			$dialogbox.get('foo').then(function (dialog) {
-				dialog.open();
-				expect(dialog.active).toEqual(true);
+			$scope.$apply(function () {
+				$dialogbox.get('foo').then(function (dialog) {
+					dialog.open();
+					expect(dialog.active).toEqual(true);
+				});
 			});
 		}));
 
 		it('should deactivate by calling close', inject(function ($dialogbox) {
 			$dialogbox.create('foo');
 
-			$dialogbox.get('foo').then(function (dialog) {
-				dialog.open();
-				dialog.close();
-				expect(dialog.active).toEqual(false);
+			$scope.$apply(function () {
+				$dialogbox.get('foo').then(function (dialog) {
+					dialog.open();
+					dialog.close();
+					expect(dialog.active).toEqual(false);
+				});
 			});
 		}));
 	});
