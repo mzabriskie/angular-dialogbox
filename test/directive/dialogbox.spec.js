@@ -22,11 +22,6 @@ describe('angular-dialogbox', function () {
 		$scope = $rootScope.$new();
 	}));
 
-	afterEach(inject(function($httpBackend) {
-		$httpBackend.verifyNoOutstandingExpectation();
-		$httpBackend.verifyNoOutstandingRequest();
-	}));
-
 	describe('attr: modal', function () {
 		it('should default to false', inject(function ($compile) {
 			createElement($compile, $scope);
@@ -193,44 +188,6 @@ describe('angular-dialogbox', function () {
 		}));
 	});
 
-	describe('attr: contentUrl', function () {
-		it('should use $http to load contentUrl', inject(function ($compile, $controller, $httpBackend) {
-			var text = 'Content came form the server';
-			$controller('DialogboxCtrl', { $scope: $scope });
-			$scope.contentUrl = '/example.html';
-
-			$httpBackend
-				.expect('GET', $scope.contentUrl)
-				.respond(text);
-
-			$scope.$apply(function () {
-				$scope.loadRemoteContent();
-			});
-
-			$httpBackend.flush();
-
-			expect($scope.content).toEqual(text);
-		}));
-
-		it('should gracefully handle $http error', inject(function ($compile, $controller, $httpBackend) {
-			var text = 'Error fetching content from ';
-			$controller('DialogboxCtrl', { $scope: $scope });
-			$scope.contentUrl = '/example.html';
-
-			$httpBackend
-				.expect('GET', $scope.contentUrl)
-				.respond(404);
-
-			$scope.$apply(function () {
-				$scope.loadRemoteContent();
-			});
-
-			$httpBackend.flush();
-
-			expect($scope.content).toEqual(text + $scope.contentUrl);
-		}));
-	});
-
 	describe('attr: buttons', function () {
 		it('should default to no buttons', inject(function ($compile) {
 			createElement($compile, $scope);
@@ -290,80 +247,6 @@ describe('angular-dialogbox', function () {
 			createElement($compile, $scope, null, text);
 
 			expect(element.children().children().children().children().eq(1).text()).toEqual(text);
-		}));
-	});
-
-	describe('constants', function () {
-		it('should provide button actions', inject(function (DIALOG_ACTION_SUBMIT, DIALOG_ACTION_CANCEL) {
-			expect(DIALOG_ACTION_SUBMIT).toEqual('dialogbox:submit');
-			expect(DIALOG_ACTION_CANCEL).toEqual('dialogbox:cancel');
-		}));
-	});
-
-	describe('service', function () {
-		it('should provide a service', inject(function ($dialogbox) {
-			expect($dialogbox).not.toBeUndefined();
-		}));
-
-		it('should get an instance', inject(function ($compile, $dialogbox) {
-			createElement($compile, $scope, {'ng-dialogbox': 'foo'});
-
-			expect($dialogbox.get('foo')).not.toBeUndefined();
-		}));
-
-		it('should resolve a promise', inject(function ($compile, $dialogbox) {
-			createElement($compile, $scope, {'ng-dialogbox': 'foo'});
-
-			var callback = jasmine.createSpy();
-			$dialogbox.get('foo').then(callback);
-			$scope.$apply();
-
-			expect(callback).toHaveBeenCalled();
-		}));
-
-		it('should have options', inject(function ($compile, $dialogbox) {
-			createElement($compile, $scope, {'ng-dialogbox': 'foo', modal: true});
-
-			$dialogbox.get('foo').then(function (dialog) {
-				expect(dialog.options.modal).toEqual(true);
-			});
-		}));
-
-		it('should default modal option to false', inject(function ($compile, $dialogbox) {
-			createElement($compile, $scope, {'ng-dialogbox': 'foo'});
-
-			$dialogbox.get('foo').then(function (dialog) {
-				expect(dialog.options.modal).toEqual(false);
-			});
-		}));
-
-		it('should not close when modal', inject(function ($compile, $dialogbox) {
-			createElement($compile, $scope, {'ng-dialogbox': 'foo', modal: true});
-
-			$dialogbox.get('foo').then(function (dialog) {
-				dialog.open();
-				dialog.close();
-				expect(dialog.active).toEqual(true);
-			});
-		}));
-
-		it('should activate by calling open', inject(function ($compile, $dialogbox) {
-			createElement($compile, $scope, {'ng-dialogbox': 'foo'});
-
-			$dialogbox.get('foo').then(function (dialog) {
-				dialog.open();
-				expect(dialog.active).toEqual(true);
-			});
-		}));
-
-		it('should deactivate by calling close', inject(function ($compile, $dialogbox) {
-			createElement($compile, $scope, {'ng-dialogbox': 'foo'});
-
-			$dialogbox.get('foo').then(function (dialog) {
-				dialog.open();
-				dialog.close();
-				expect(dialog.active).toEqual(false);
-			});
 		}));
 	});
 });
