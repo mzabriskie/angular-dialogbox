@@ -124,12 +124,14 @@ angular.module('angular-dialogbox', ['ng'])
 				var container = elem.children().children();
 				container.addClass('ng-dialogbox-' + scope.size);
 
-				if (!isNaN(parseInt(scope.height, 10))) {
-					container.css('height', parseInt(scope.height, 10) + 'px');
+				var height = parseInt(scope.height, 10);
+				if (!isNaN(height) && height > 0) {
+					container.css('height', height + 'px');
 				}
 
-				if (!isNaN(parseInt(scope.width, 10))) {
-					container.css('width', parseInt(scope.width, 10) + 'px');
+				var width = parseInt(scope.width, 10);
+				if (!isNaN(width) && width > 0) {
+					container.css('width', width + 'px');
 				}
 			}
 		};
