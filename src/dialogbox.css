@@ -55,7 +55,7 @@
 	visibility: hidden;
 }
 
-.ng-dialogbox-heading {
+.ng-dialogbox-caption {
 	border-radius: 3px 3px 0 0;
 	background-color: #e6e6e6;
 	line-height: 24px;
@@ -70,7 +70,7 @@
 	margin: 0;
 }
 
-.ng-dialogbox-subheading {
+.ng-dialogbox-subcaption {
 	padding: 5px 10px;
 	border-bottom: solid 1px #c3c3c3;
 	font-size: 12px;
@@ -144,11 +144,11 @@
 	bottom: 40px;
 }
 
-.ng-dialogbox-show-subheading .ng-dialogbox-content {
+.ng-dialogbox-show-subcaption .ng-dialogbox-content {
 	top: 55px;
 }
 
-.ng-dialogbox-show-subheading .ng-dialogbox-subheading,
+.ng-dialogbox-show-subcaption .ng-dialogbox-subcaption,
 .ng-dialogbox-show-menu .ng-dialogbox-footer {
 	display: block;
 }

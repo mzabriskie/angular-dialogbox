@@ -63,21 +63,21 @@ angular.module('angular-dialogbox', ['ng'])
 				size: '@',
 				height: '@',
 				width: '@',
-				heading: '@',
-				subheading: '@',
+				caption: '@',
+				subcaption: '@',
 				contentUrl: '@',
 				buttons: '='
 			},
 
-			template:	'<div ng-show="dialogbox.active" class="ng-dialogbox-scrim" ng-class="{ \'ng-dialogbox-show-close\' : !modal, \'ng-dialogbox-show-subheading\' : subheading.length, \'ng-dialogbox-show-menu\' : buttons.left.length || buttons.right.length }">' +
+			template:	'<div ng-show="dialogbox.active" class="ng-dialogbox-scrim" ng-class="{ \'ng-dialogbox-show-close\' : !modal, \'ng-dialogbox-show-subcaption\' : subcaption.length, \'ng-dialogbox-show-menu\' : buttons.left.length || buttons.right.length }">' +
 							'<div class="ng-dialogbox-border">' +
 								'<div class="ng-dialogbox">' +
 									'<header class="ng-dialogbox-header">' +
 										'<div class="ng-dialogbox-options">' +
 											'<a class="ng-dialogbox-close">×</a>' +
 										'</div>' +
-										'<h1 class="ng-dialogbox-heading">{{ heading }}</h1>' +
-										'<div class="ng-dialogbox-subheading">{{ subheading }}</div>' +
+										'<h1 class="ng-dialogbox-caption">{{ caption }}</h1>' +
+										'<div class="ng-dialogbox-subcaption">{{ subcaption }}</div>' +
 									'</header>' +
 									'<div class="ng-dialogbox-content">{{ content }}' +
 										'<div ng-transclude></div>' +

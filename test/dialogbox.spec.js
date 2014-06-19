@@ -136,57 +136,57 @@ describe('angular-dialogbox', function () {
 		}));
 	});
 
-	describe('attr: heading', function () {
+	describe('attr: caption', function () {
 		it('should default to empty', inject(function ($compile) {
 			createElement($compile, $scope);
 
 			expect(element.find('h1').text()).toEqual('');
 		}));
 
-		it('should accept heading', inject(function ($compile) {
+		it('should accept caption', inject(function ($compile) {
 			var text = 'Hello World';
-			createElement($compile, $scope, { heading: text });
+			createElement($compile, $scope, { caption: text });
 
 			expect(element.find('h1').text()).toEqual(text);
 		}));
 
-		it('should update heading', inject(function ($compile) {
-			$scope.heading = 'Hello';
-			createElement($compile, $scope, { heading: '{{ heading }}'});
+		it('should update caption', inject(function ($compile) {
+			$scope.caption = 'Hello';
+			createElement($compile, $scope, { caption: '{{ caption }}'});
 
 			expect(element.find('h1').text()).toEqual('Hello');
 
 			$scope.$apply(function () {
-				$scope.heading = 'World';
+				$scope.caption = 'World';
 			});
 
 			expect(element.find('h1').text()).toEqual('World');
 		}));
 	});
 
-	describe('attr: subheading', function () {
-		it('should default to not show subheading', inject(function ($compile) {
+	describe('attr: subcaption', function () {
+		it('should default to not show subcaption', inject(function ($compile) {
 			createElement($compile, $scope);
 
-			expect(element.children().hasClass('ng-dialogbox-show-subheading')).toEqual(false);
+			expect(element.children().hasClass('ng-dialogbox-show-subcaption')).toEqual(false);
 		}));
 
-		it('should show subheading when attribute is set', inject(function ($compile) {
+		it('should show subcaption when attribute is set', inject(function ($compile) {
 			var text = 'Lorem Ipsum';
-			createElement($compile, $scope, { subheading: text });
+			createElement($compile, $scope, { subcaption: text });
 
-			expect(element.children().hasClass('ng-dialogbox-show-subheading')).toEqual(true);
+			expect(element.children().hasClass('ng-dialogbox-show-subcaption')).toEqual(true);
 			expect(element.find('header').children().eq(2).text()).toEqual(text);
 		}));
 
-		it('should update subheading', inject(function ($compile) {
-			$scope.subheading = 'Lorem';
-			createElement($compile, $scope, { subheading: '{{ subheading }}' });
+		it('should update subcaption', inject(function ($compile) {
+			$scope.subcaption = 'Lorem';
+			createElement($compile, $scope, { subcaption: '{{ subcaption }}' });
 
 			expect(element.find('header').children().eq(2).text()).toEqual('Lorem');
 
 			$scope.$apply(function () {
-				$scope.subheading = 'Ipsum';
+				$scope.subcaption = 'Ipsum';
 			});
 
 			expect(element.find('header').children().eq(2).text()).toEqual('Ipsum');
