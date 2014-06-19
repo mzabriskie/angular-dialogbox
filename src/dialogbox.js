@@ -1,6 +1,7 @@
 angular.module('angular-dialogbox', ['ng'])
 	.constant('DIALOG_ACTION_SUBMIT', 'dialogbox:submit')
 	.constant('DIALOG_ACTION_CANCEL', 'dialogbox:cancel')
+	.constant('DIALOG_SIZES', ['full', 'large', 'medium', 'small'])
 
 	.factory('$dialogbox', function ($q) {
 		var instances = {};
@@ -56,7 +57,7 @@ angular.module('angular-dialogbox', ['ng'])
 		}
 	}])
 
-	.directive('ngDialogbox', function ($document, $dialogbox) {
+	.directive('ngDialogbox', function ($document, $dialogbox, DIALOG_SIZES) {
 		var hasDocumentKeyUpEvent = false;
 
 		return {
@@ -131,7 +132,7 @@ angular.module('angular-dialogbox', ['ng'])
 					if (!scope.size) {
 						scope.size = 'medium';
 					}
-					angular.forEach(['full', 'large', 'medium', 'small'], function (value) {
+					angular.forEach(DIALOG_SIZES, function (value) {
 						container.removeClass('ng-dialogbox-' + value);
 					});
 					container.addClass('ng-dialogbox-' + scope.size);

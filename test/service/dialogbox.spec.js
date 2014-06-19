@@ -12,6 +12,10 @@ describe('angular-dialogbox', function () {
 			expect(DIALOG_ACTION_SUBMIT).toEqual('dialogbox:submit');
 			expect(DIALOG_ACTION_CANCEL).toEqual('dialogbox:cancel');
 		}));
+
+		it('should provide sizes', inject(function (DIALOG_SIZES) {
+			expect(DIALOG_SIZES).toEqual(['full', 'large', 'medium', 'small']);
+		}));
 	});
 
 	describe('service', function () {
