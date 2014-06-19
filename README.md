@@ -1,1 +1,1 @@
-# angular-dialogbox
+# angular-dialogbox [![Build Status](https://travis-ci.org/mzabriskie/angular-dialogbox.png?branch=master)](https://travis-ci.org/mzabriskie/angular-dialogbox)
