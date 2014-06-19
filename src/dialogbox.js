@@ -70,7 +70,7 @@ angular.module('angular-dialogbox', ['ng'])
 				buttons: '='
 			},
 
-			template:	'<div ng-show="dialogbox.active" class="ng-dialogbox-scrim" ng-class="{ \'ng-dialogbox-show-close\' : modal, \'ng-dialogbox-show-subheading\' : subheading.length, \'ng-dialogbox-show-menu\' : buttons.left.length || buttons.right.length }">' +
+			template:	'<div ng-show="dialogbox.active" class="ng-dialogbox-scrim" ng-class="{ \'ng-dialogbox-show-close\' : !modal, \'ng-dialogbox-show-subheading\' : subheading.length, \'ng-dialogbox-show-menu\' : buttons.left.length || buttons.right.length }">' +
 							'<div class="ng-dialogbox-border">' +
 								'<div class="ng-dialogbox">' +
 									'<header class="ng-dialogbox-header">' +

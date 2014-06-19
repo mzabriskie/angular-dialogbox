@@ -31,26 +31,26 @@ describe('angular-dialogbox', function () {
 		it('should default to false', inject(function ($compile) {
 			createElement($compile, $scope);
 
-			expect(element.children().hasClass('ng-dialogbox-show-close')).toEqual(false);
+			expect(element.children().hasClass('ng-dialogbox-show-close')).toEqual(true);
 		}));
 
 		it('should accept modal', inject(function ($compile) {
 			createElement($compile, $scope, { modal: true });
 
-			expect(element.children().hasClass('ng-dialogbox-show-close')).toEqual(true);
+			expect(element.children().hasClass('ng-dialogbox-show-close')).toEqual(false);
 		}));
 
 		it('should update modal', inject(function ($compile) {
 			$scope.modal = true;
 			createElement($compile, $scope, { modal: '{{ modal }}' });
 
-			expect(element.children().hasClass('ng-dialogbox-show-close')).toEqual(true);
+			expect(element.children().hasClass('ng-dialogbox-show-close')).toEqual(false);
 
 			$scope.$apply(function () {
 				$scope.modal = false;
 			});
 
-			expect(element.children().hasClass('ng-dialogbox-show-close')).toEqual(false);
+			expect(element.children().hasClass('ng-dialogbox-show-close')).toEqual(true);
 		}));
 	});
 
