@@ -14,6 +14,10 @@ angular.module('angular-dialogbox', ['ng'])
 			instances[name].resolve(this);
 		}
 
+		DialogBox.create = function (name, options) {
+			return new DialogBox(name, options);
+		};
+
 		DialogBox.get = function (name) {
 			if (!instances[name]) {
 				instances[name] = $q.defer();
@@ -119,7 +123,7 @@ angular.module('angular-dialogbox', ['ng'])
 				});
 
 				if (attr.ngDialogbox) {
-					scope.dialogbox = new $dialogbox(attr.ngDialogbox);
+					scope.dialogbox = $dialogbox.create(attr.ngDialogbox);
 				}
 
 				var container = elem.children().children();
