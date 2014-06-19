@@ -48,7 +48,9 @@ angular.module('angular-dialogbox', ['ng'])
 		}
 	}])
 
-	.directive('ngDialogbox', function ($dialogbox) {
+	.directive('ngDialogbox', function ($document, $dialogbox) {
+		var hasDocumentKeyUpEvent = false;
+
 		return {
 			restrict: 'AE',
 			transclude: true,
@@ -92,12 +94,17 @@ angular.module('angular-dialogbox', ['ng'])
 			controller: 'DialogboxCtrl',
 
 			link: function (scope, elem, attr) {
-				if (attr.ngDialogbox) {
-					scope.dialogbox = new $dialogbox(attr.ngDialogbox);
-				}
+				if (!hasDocumentKeyUpEvent) {
+					$document.on('keyup', function (e) {
+						console.log(e.keyCode);
+						if (e.keyCode === 27) {
+							scope.$apply(function () {
+								scope.dialogbox.close();
+							});
+						}
+					});
 
-				if (!scope.size) {
-					scope.size = 'medium';
+					hasDocumentKeyUpEvent = true;
 				}
 
 				elem.find('header').find('a').on('click', function () {
@@ -105,6 +112,14 @@ angular.module('angular-dialogbox', ['ng'])
 						scope.dialogbox.close();
 					});
 				});
+
+				if (attr.ngDialogbox) {
+					scope.dialogbox = new $dialogbox(attr.ngDialogbox);
+				}
+
+				if (!scope.size) {
+					scope.size = 'medium';
+				}
 
 				var container = elem.children().children();
 				container.addClass('ng-dialogbox-' + scope.size);

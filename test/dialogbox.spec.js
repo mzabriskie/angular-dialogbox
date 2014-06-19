@@ -198,6 +198,22 @@ describe('angular-dialogbox', function () {
 		}));
 	});
 
+	// TODO: triggerHandler isn't passing keyCode
+	//describe('event: esc', function () {
+	//	it('should close when esc key is pressed', inject(function ($document, $dialogbox, $compile) {
+	//		createElement($compile, $scope, {'ng-dialogbox': 'foo'});
+	//
+	//		$dialogbox.get('foo').then(function (dialog) {
+	//			dialog.open();
+	//			expect(dialog.active).toBeTruthy();
+	//
+	//			$document.triggerHandler('keyup', {keyCode: 27, which: 27});
+	//
+	//			expect(dialog.active).toBeFalsy();
+	//		});
+	//	}));
+	//});
+
 	describe('transclusion', function () {
 		it('should have no content by default', inject(function ($compile) {
 			createElement($compile, $scope);
