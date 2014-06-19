@@ -4,14 +4,17 @@ angular.module('angular-dialogbox', ['ng'])
 	.constant('DIALOG_SIZES', ['full', 'large', 'medium', 'small'])
 
 	.factory('$dialogbox', function ($q) {
-		var instances = {};
+		var instances = {},
+			defaultOptions = {
+				modal: false
+			};
 
 		function DialogBox(name, options) {
 			if (!instances[name]) {
 				instances[name] = $q.defer();
 			}
 			this.name = name;
-			this.options = options || {};
+			this.options = angular.extend(defaultOptions, options);
 			instances[name].resolve(this);
 		}
 
